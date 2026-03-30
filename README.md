@@ -10,12 +10,14 @@ Check out the live playground: **[tharunkumar.dev/tharunpp](https://tharunkumar.
 
 ## 🚀 Features
 
-- **Interactive IDE**: Monaco editor integrated with custom syntax highlighting for Tharunpp keywords.
-- **Built-in Examples**: 6 predefined example programs (from 'Hello World' to 'Lists' to 'Error Handling') available via a quick access dropdown.
-- **Live Code Execution**: backend execution API capable of executing Tharunpp scripts securely.
-- **Sharable Code Links**: Generate Base64 encoded URLs to easily share your snippets with others.
-- **Execution Performance Tracking**: Displays the dynamic execution time for each run.
-- **Dedicated Documentation Hub**: Fully styled standalone `/docs` and `/examples` pages acting as the definitive guide to coding in Tamil.
+- **Interactive IDE**: Monaco editor with custom syntax highlighting for Tharunpp keywords.
+- **Light / Dark Mode**: Toggle between dark and light themes, persisted across sessions via `localStorage`.
+- **Built-in Examples**: 6 predefined example programs (Hello World → Lists → Error Handling) accessible via a dropdown.
+- **Live Code Execution**: Secure backend execution API that runs Tharunpp scripts and streams output.
+- **Sharable Code Links**: Generate Base64-encoded URLs to share your snippets instantly.
+- **Execution Performance Tracking**: Displays execution time for every run.
+- **Dedicated Documentation Hub**: Standalone `/docs` and `/examples` pages — the definitive guide to coding in Tamil.
+- **Custom Branding**: Space Grotesk typography, custom SVG logo (`tharunpp-svg.svg`), animated loading screen.
 - **Mobile Responsive Design**: Code comfortably on any device.
 
 ---
@@ -125,7 +127,7 @@ Open your browser and navigate to `http://localhost:3000/tharunpp`.
 4. Add the following **Environment Variable**:
    - `NEXT_PUBLIC_API_URL` = `<your_render_backend_url>`
 5. Click **Deploy**.
-6. (Optional) Add a custom domain such as `tharunkumar.dev` to map to this vercel project.
+6. (Optional) Add a custom domain such as `tharunkumar.dev/tharunpp` to map to this Vercel project.
 
 ---
 

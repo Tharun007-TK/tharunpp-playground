@@ -28,7 +28,7 @@ export default function LoadingScreen() {
   return (
     <div className={`loading-overlay ${fading ? "fade-out" : ""}`}>
       <div className="pulse-container">
-        <Logo className="loading-logo" />
+        <Logo className="loading-logo" size={80} />
         <h1 className="loading-text">Tharunpp</h1>
         <p className="loading-subtext">Compiling Cinema...</p>
       </div>
@@ -60,12 +60,14 @@ export default function LoadingScreen() {
         }
 
         .loading-logo {
-          font-size: 4rem;
-          color: #f59e0b;
+          width: 80px;
+          height: 80px;
+          border-radius: 12px;
+          filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.5));
         }
 
         .loading-text {
-          font-family: "Inter", sans-serif;
+          font-family: "Space Grotesk", sans-serif;
           font-weight: 800;
           font-size: 2rem;
           margin: 0;
