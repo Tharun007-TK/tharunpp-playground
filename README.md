@@ -1,3 +1,5 @@
+![Tharunpp Banner](./banner.png)
+
 # Tharunpp Playground 🎬
 
 A powerful, full-stack playground and documentation hub for the **Tharunpp** esoteric language made inspired by famous tamil words and dialogues. This project provides a robust browser-based IDE to write, execute, and share Tharunpp code instantly.

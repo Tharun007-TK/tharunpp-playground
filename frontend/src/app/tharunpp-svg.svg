@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+    <defs>
+        <linearGradient id="tGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00F2FE" />
+            <stop offset="100%" stop-color="#4FACFE" />
+        </linearGradient>
+        <linearGradient id="plusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF0844" />
+            <stop offset="100%" stop-color="#FFB199" />
+        </linearGradient>
+        <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0D1117" />
+            <stop offset="100%" stop-color="#161B22" />
+        </linearGradient>
+    </defs>
+
+    <rect width="500" height="500" rx="40" fill="url(#bgGrad)" />
+
+    <path d="M 120 160 L 60 220 L 120 280" stroke="#30363D" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" />
+    <path d="M 380 160 L 440 220 L 380 280" stroke="#30363D" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.6" />
+
+    <g transform="translate(-13, 0)">
+        <rect x="150" y="140" width="120" height="32" rx="10" fill="url(#tGrad)" />
+        <rect x="194" y="172" width="32" height="120" rx="10" fill="url(#tGrad)" />
+
+        <rect x="290" y="190" width="36" height="12" rx="6" fill="url(#plusGrad)" />
+        <rect x="302" y="178" width="12" height="36" rx="6" fill="url(#plusGrad)" />
+
+        <rect x="340" y="190" width="36" height="12" rx="6" fill="url(#plusGrad)" />
+        <rect x="352" y="178" width="12" height="36" rx="6" fill="url(#plusGrad)" />
+    </g>
+
+    <text x="250" y="380" font-family="'Courier New', Consolas, monospace" font-size="38" font-weight="900" fill="#E6EDF3" text-anchor="middle" letter-spacing="8">THARUNPP</text>
+    <text x="250" y="415" font-family="'Courier New', Consolas, monospace" font-size="14" fill="#8B949E" text-anchor="middle" letter-spacing="5">ESOTERIC LANGUAGE</text>
+</svg>

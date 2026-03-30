@@ -15,7 +15,7 @@ export default function TharunppDocs() {
       <header className="header">
         <div className="brand-group">
           <div className="brand-left">
-            <Logo className="brand-logo" />
+            <Logo className="brand-logo" size={28} />
             <span className="brand-title">THARUNPP</span>
             <span className="playground-badge">DOCS</span>
           </div>
@@ -332,8 +332,10 @@ DA</code></pre>
         }
 
         .brand-logo {
-          font-size: 1.12rem;
-          filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.35));
+          width: 28px;
+          height: 28px;
+          border-radius: 6px;
+          flex-shrink: 0;
         }
 
         .brand-title {
