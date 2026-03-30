@@ -1,19 +1,21 @@
 "use client";
 
 import { useRouter, usePathname } from "next/navigation";
+import Logo from "../../components/Logo";
+import { useTheme } from "../../hooks/useTheme";
+import ThemeToggle from "../../components/ThemeToggle";
 
 export default function TharunppDocs() {
   const router = useRouter();
   const pathname = usePathname();
+  const { isDark, toggleTheme, isMounted } = useTheme();
 
   return (
     <div className="shell">
       <header className="header">
         <div className="brand-group">
           <div className="brand-left">
-            <span className="brand-logo" aria-hidden="true">
-              🎬
-            </span>
+            <Logo className="brand-logo" />
             <span className="brand-title">THARUNPP</span>
             <span className="playground-badge">DOCS</span>
           </div>
@@ -45,6 +47,7 @@ export default function TharunppDocs() {
           >
             Examples
           </button>
+          <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} isMounted={isMounted} />
         </nav>
 
         <div className="external-links">
@@ -83,7 +86,7 @@ export default function TharunppDocs() {
         <div className="docs-container">
           <div className="main-header">
             <h1 className="title">Tharunpp Documentation</h1>
-            <p className="subtitle">An esoteric programming language based on famous comedy dialogues of South Indian cinema stars.</p>
+            <p className="subtitle">An esoteric language made inspired by famous tamil words and dialogues.</p>
           </div>
 
           <div className="docs-layout">
@@ -262,18 +265,18 @@ DA</code></pre>
 
       <footer className="footer">
         <span>pip install tharunpp</span>
-        <span>Made with ❤️ in Tamil Nadu 🎬</span>
+        <span>Made with passion in Tamil Nadu</span>
         <a
-          href="https://tharunkumar.dev"
+          href="https://tharunkumar.dev/tharunpp"
           target="_blank"
           rel="noopener noreferrer"
         >
-          tharunkumar.dev
+          tharunkumar.dev/tharunpp
         </a>
       </footer>
 
       <style jsx>{`
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap");
 
         .shell {
           --bg: #06080f;
@@ -289,7 +292,7 @@ DA</code></pre>
           color: var(--text);
           display: flex;
           flex-direction: column;
-          font-family: "Inter", "Segoe UI", sans-serif;
+          font-family: "Space Grotesk", "Segoe UI", sans-serif;
           scroll-behavior: smooth;
         }
 
@@ -650,6 +653,163 @@ DA</code></pre>
 
         .footer a:hover {
           text-decoration: underline;
+        }
+
+        :global(.light-theme) .shell,
+        :global(.light-theme) body,
+        :global(.light-theme) html {
+          --bg: #f8fafc;
+          --panel: #ffffff;
+          --panel-2: #f1f5f9;
+          --border: #cbd5e1;
+          --text: #0f172a;
+          --muted: #64748b;
+          --accent: #d97706;
+          --good: #059669;
+          --bad: #dc2626;
+          background: var(--bg) !important;
+        }
+
+        :global(.light-theme) .header {
+          background: rgba(255, 255, 255, 0.96) !important;
+          border-bottom: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .brand-title {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .icon-link {
+          background: #f1f5f9 !important;
+          color: #334155 !important;
+          border-color: var(--border) !important;
+        }
+
+        :global(.light-theme) .icon-link:hover {
+          background: #e2e8f0 !important;
+          color: #d97706 !important;
+        }
+
+        :global(.light-theme) .playground-badge {
+          color: #b45309 !important;
+          background: rgba(245, 158, 11, 0.2) !important;
+          border-color: rgba(245, 158, 11, 0.5) !important;
+        }
+
+        :global(.light-theme) .version-badge {
+          color: #334155 !important;
+          background: #e2e8f0 !important;
+          border-color: #cbd5e1 !important;
+        }
+
+        :global(.light-theme) .nav-tabs {
+          background: rgba(241, 245, 249, 0.9) !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .nav-btn {
+          color: #64748b !important;
+        }
+
+        :global(.light-theme) .nav-btn:hover {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .nav-btn.active {
+          background: #ffffff !important;
+          color: #0f172a !important;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        }
+
+        :global(.light-theme) .docs-sidebar {
+          background: var(--bg) !important;
+          border-right: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .doc-section h2 {
+          color: var(--text) !important;
+          border-bottom: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .sub-heading {
+          color: var(--text) !important;
+        }
+
+        :global(.light-theme) .doc-section p {
+          color: #334155 !important;
+        }
+
+        :global(.light-theme) .keyword-list li {
+          background: var(--panel) !important;
+          color: #334155 !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .op-card {
+          background: var(--panel) !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .op-card h4 {
+          color: var(--text) !important;
+        }
+
+        :global(.light-theme) .op-card p {
+          color: #475569 !important;
+        }
+
+        :global(.light-theme) .code-block {
+          background: var(--panel-2) !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .code-block code {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .footer {
+          background: rgba(255, 255, 255, 0.95) !important;
+          border-top: 1px solid var(--border) !important;
+          color: #475569 !important;
+        }
+
+        :global(.light-theme) .title {
+          background: linear-gradient(135deg, #d97706, #b45309) !important;
+          -webkit-background-clip: text !important;
+          background-clip: text !important;
+          -webkit-text-fill-color: transparent !important;
+          color: transparent !important;
+        }
+
+        :global(.light-theme) .sidebar-nav a {
+          color: #475569 !important;
+        }
+
+        :global(.light-theme) .sidebar-nav a:hover {
+          color: #d97706 !important;
+          background: rgba(245, 158, 11, 0.08) !important;
+        }
+
+        :global(.light-theme) .info-box p {
+          color: #1e3a8a !important;
+        }
+
+        :global(.light-theme) .kw {
+          color: #c2410c !important;
+        }
+
+        :global(.light-theme) .highlight-code {
+          background: #f1f5f9 !important;
+          color: #0369a1 !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .op-card code {
+          color: #6d28d9 !important;
+        }
+
+        :global(.light-theme) .op-card small {
+          color: #475569 !important;
         }
       `}</style>
     </div>

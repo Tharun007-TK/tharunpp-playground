@@ -4,6 +4,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Editor, { OnMount } from "@monaco-editor/react";
 import * as monaco from "monaco-editor";
 import { useRouter, usePathname } from "next/navigation";
+import Logo from "../components/Logo";
+import { useTheme } from "../hooks/useTheme";
+import ThemeToggle from "../components/ThemeToggle";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL || "https://tharunpp-api.onrender.com";
@@ -221,6 +224,35 @@ function registerTharunppLanguage(monacoInstance: typeof monaco) {
     },
   });
 
+  monacoInstance.editor.defineTheme("tharunpp-light", {
+    base: "vs",
+    inherit: true,
+    rules: [
+      { token: "comment", foreground: "6B7280", fontStyle: "italic" },
+      { token: "keyword.control", foreground: "D97706", fontStyle: "bold" },
+      { token: "keyword.function", foreground: "7C3AED", fontStyle: "bold" },
+      { token: "keyword.error", foreground: "DC2626", fontStyle: "bold" },
+      { token: "keyword.list", foreground: "059669", fontStyle: "bold" },
+      { token: "keyword.output", foreground: "2563EB", fontStyle: "bold" },
+      { token: "keyword", foreground: "EA580C" },
+      { token: "keyword.operator", foreground: "C026D3" },
+      { token: "constant", foreground: "16A34A" },
+      { token: "string", foreground: "059669" },
+      { token: "number", foreground: "D97706" },
+      { token: "identifier", foreground: "0F172A" },
+      { token: "operator", foreground: "475569" },
+    ],
+    colors: {
+      "editor.background": "#f8fafc",
+      "editor.foreground": "#0f172a",
+      "editor.lineHighlightBackground": "#f1f5f9",
+      "editor.selectionBackground": "#e2e8f0",
+      "editorCursor.foreground": "#d97706",
+      "editorLineNumber.foreground": "#94a3b8",
+      "editorLineNumber.activeForeground": "#d97706",
+    },
+  });
+
   monacoInstance.languages.registerCompletionItemProvider("tharunpp", {
     provideCompletionItems: (model, position) => {
       const suggestions = THARUNPP_KEYWORDS.map((kw) => ({
@@ -251,12 +283,21 @@ export default function TharunppPlayground() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
+  const monacoRef = useRef<any>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
+  const { isDark, toggleTheme, isMounted } = useTheme();
+
+  useEffect(() => {
+    if (monacoRef.current && isMounted) {
+      monacoRef.current.editor.setTheme(isDark ? "tharunpp-dark" : "tharunpp-light");
+    }
+  }, [isDark, isMounted]);
 
   const handleEditorMount: OnMount = (editor, monacoInstance) => {
     editorRef.current = editor;
+    monacoRef.current = monacoInstance;
     registerTharunppLanguage(monacoInstance);
-    monacoInstance.editor.setTheme("tharunpp-dark");
+    monacoInstance.editor.setTheme(isDark ? "tharunpp-dark" : "tharunpp-light");
   };
 
   const runCode = useCallback(async () => {
@@ -348,9 +389,7 @@ export default function TharunppPlayground() {
       <header className="header">
         <div className="brand-group">
           <div className="brand-left">
-            <span className="brand-logo" aria-hidden="true">
-              🎬
-            </span>
+            <Logo className="brand-logo" />
             <span className="brand-title">THARUNPP</span>
             <span className="playground-badge">PLAYGROUND</span>
           </div>
@@ -382,6 +421,7 @@ export default function TharunppPlayground() {
           >
             Examples
           </button>
+          <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} isMounted={isMounted} />
         </nav>
 
         <div className="external-links">
@@ -522,18 +562,18 @@ export default function TharunppPlayground() {
 
       <footer className="footer">
         <span>pip install tharunpp</span>
-        <span>Made with ❤️ in Tamil Nadu 🎬</span>
+        <span>Made with passion in Tamil Nadu</span>
         <a
-          href="https://tharunkumar.dev"
+          href="https://tharunkumar.dev/tharunpp"
           target="_blank"
           rel="noopener noreferrer"
         >
-          tharunkumar.dev
+          tharunkumar.dev/tharunpp
         </a>
       </footer>
 
       <style jsx>{`
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap");
 
         .shell {
           --bg: #06080f;
@@ -562,7 +602,7 @@ export default function TharunppPlayground() {
           color: var(--text);
           display: grid;
           grid-template-rows: auto auto minmax(0, 1fr) auto;
-          font-family: "Inter", "Segoe UI", sans-serif;
+          font-family: "Space Grotesk", "Segoe UI", sans-serif;
         }
 
         .header {
@@ -981,6 +1021,162 @@ export default function TharunppPlayground() {
           height: 100%;
           background: #06080f;
           overflow: hidden;
+        }
+
+        :global(.light-theme) .shell,
+        :global(.light-theme) body,
+        :global(.light-theme) html {
+          --bg: #f8fafc;
+          --panel: #ffffff;
+          --panel-2: #f1f5f9;
+          --border: #cbd5e1;
+          --text: #0f172a;
+          --muted: #64748b;
+          --accent: #d97706;
+          --good: #059669;
+          --bad: #dc2626;
+          background: var(--bg) !important;
+        }
+
+        :global(.light-theme) .header {
+          background: rgba(255, 255, 255, 0.96) !important;
+          border-bottom: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .brand-title {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .icon-link {
+          background: #f1f5f9 !important;
+          color: #334155 !important;
+          border-color: var(--border) !important;
+        }
+
+        :global(.light-theme) .icon-link:hover {
+          background: #e2e8f0 !important;
+          color: #d97706 !important;
+        }
+
+        :global(.light-theme) .playground-badge {
+          color: #b45309 !important;
+          background: rgba(245, 158, 11, 0.2) !important;
+          border-color: rgba(245, 158, 11, 0.5) !important;
+        }
+
+        :global(.light-theme) .version-badge {
+          color: #334155 !important;
+          background: #e2e8f0 !important;
+          border-color: #cbd5e1 !important;
+        }
+
+        :global(.light-theme) .nav-tabs {
+          background: rgba(241, 245, 249, 0.9) !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .nav-btn {
+          color: #64748b !important;
+        }
+
+        :global(.light-theme) .nav-btn:hover {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .nav-btn.active {
+          background: #ffffff !important;
+          color: #0f172a !important;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        }
+
+        :global(.light-theme) .toolbar {
+          background: rgba(255, 255, 255, 0.85) !important;
+          border-bottom: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .toolbar-button {
+          background: #ffffff !important;
+          color: #334155 !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .run-button {
+          background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+          color: #1a1102 !important;
+          border: none !important;
+          font-weight: 800 !important;
+        }
+        
+        :global(.light-theme) .run-button .shortcut {
+          color: rgba(27, 18, 4, 0.7) !important;
+        }
+
+        :global(.light-theme) .dropdown-menu {
+          background: #ffffff !important;
+          border: 1px solid var(--border) !important;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        :global(.light-theme) .menu-item {
+          color: #475569 !important;
+        }
+
+        :global(.light-theme) .menu-item:hover,
+        :global(.light-theme) .menu-item.selected {
+          color: #d97706 !important;
+          background: rgba(245, 158, 11, 0.1) !important;
+        }
+
+        :global(.light-theme) .pane {
+          background: var(--panel) !important;
+        }
+
+        :global(.light-theme) .pane-output {
+          background: var(--panel-2) !important;
+        }
+
+        :global(.light-theme) .pane-label {
+          background: rgba(241, 245, 249, 0.9) !important;
+          color: #334155 !important;
+          border-bottom: 1px solid var(--border) !important;
+          font-weight: 800 !important;
+        }
+
+        :global(.light-theme) .placeholder {
+          color: #64748b !important;
+        }
+
+        :global(.light-theme) .running {
+          color: #d97706 !important;
+        }
+
+        :global(.light-theme) .output-text {
+          color: #059669 !important;
+        }
+
+        :global(.light-theme) .footer {
+          background: rgba(255, 255, 255, 0.95) !important;
+          border-top: 1px solid var(--border) !important;
+          color: #475569 !important;
+        }
+
+        :global(.light-theme) .error-box {
+          background: rgba(254, 226, 226, 0.5) !important;
+          border: 1px solid rgba(239, 68, 68, 0.3) !important;
+        }
+
+        :global(.light-theme) .error-title {
+          color: #991b1b !important;
+        }
+
+        :global(.light-theme) .error-text {
+          color: #b91c1c !important;
+        }
+
+        :global(.light-theme) .panel-time {
+          background: rgba(255, 255, 255, 0.9) !important;
+          border: 1px solid var(--border) !important;
+          color: #64748b !important;
         }
       `}</style>
     </div>

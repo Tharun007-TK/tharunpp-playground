@@ -1,8 +1,8 @@
 # Tharunpp Playground 🎬
 
-A powerful, full-stack playground and documentation hub for the **Tharunpp** esoteric programming language, created based on the famous comedy dialogues of South Indian cinema stars. This project provides a robust browser-based IDE to write, execute, and share Tharunpp code instantly.
+A powerful, full-stack playground and documentation hub for the **Tharunpp** esoteric language made inspired by famous tamil words and dialogues. This project provides a robust browser-based IDE to write, execute, and share Tharunpp code instantly.
 
-Check out the live playground: **[tharunpp-playground.vercel.app/tharunpp](https://tharunpp-playground.vercel.app/tharunpp)**
+Check out the live playground: **[tharunkumar.dev/tharunpp](https://tharunkumar.dev/tharunpp)**
 
 ---
 

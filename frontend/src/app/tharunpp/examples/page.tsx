@@ -2,6 +2,9 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useState } from "react";
+import Logo from "../../components/Logo";
+import { useTheme } from "../../hooks/useTheme";
+import ThemeToggle from "../../components/ThemeToggle";
 
 const EXAMPLES_DATA = [
   {
@@ -117,6 +120,7 @@ export default function TharunppExamples() {
   const router = useRouter();
   const pathname = usePathname();
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const { isDark, toggleTheme, isMounted } = useTheme();
 
   const handleCopy = (code: string, index: number) => {
     navigator.clipboard.writeText(code).then(() => {
@@ -135,9 +139,7 @@ export default function TharunppExamples() {
       <header className="header">
         <div className="brand-group">
           <div className="brand-left">
-            <span className="brand-logo" aria-hidden="true">
-              🎬
-            </span>
+            <Logo className="brand-logo" />
             <span className="brand-title">THARUNPP</span>
             <span className="playground-badge">EXAMPLES</span>
           </div>
@@ -169,6 +171,7 @@ export default function TharunppExamples() {
           >
             Examples
           </button>
+          <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} isMounted={isMounted} />
         </nav>
 
         <div className="external-links">
@@ -242,18 +245,18 @@ export default function TharunppExamples() {
 
       <footer className="footer">
         <span>pip install tharunpp</span>
-        <span>Made with ❤️ in Tamil Nadu 🎬</span>
+        <span>Made with passion in Tamil Nadu</span>
         <a
-          href="https://tharunkumar.dev"
+          href="https://tharunkumar.dev/tharunpp"
           target="_blank"
           rel="noopener noreferrer"
         >
-          tharunkumar.dev
+          tharunkumar.dev/tharunpp
         </a>
       </footer>
 
       <style jsx>{`
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap");
 
         .shell {
           --bg: #06080f;
@@ -269,7 +272,7 @@ export default function TharunppExamples() {
           color: var(--text);
           display: flex;
           flex-direction: column;
-          font-family: "Inter", "Segoe UI", sans-serif;
+          font-family: "Space Grotesk", "Segoe UI", sans-serif;
         }
 
         .header {
@@ -518,6 +521,136 @@ export default function TharunppExamples() {
 
         .footer a:hover {
           text-decoration: underline;
+        }
+
+        :global(.light-theme) {
+          --bg: #f8fafc;
+          --panel: #ffffff;
+          --panel-2: #f1f5f9;
+          --border: #e2e8f0;
+          --text: #0f172a;
+          --muted: #64748b;
+          --accent: #d97706;
+          --good: #059669;
+          --bad: #dc2626;
+        }
+
+        :global(.light-theme) .shell,
+        :global(.light-theme) body,
+        :global(.light-theme) html {
+          --bg: #f8fafc;
+          --panel: #ffffff;
+          --panel-2: #f1f5f9;
+          --border: #cbd5e1;
+          --text: #0f172a;
+          --muted: #64748b;
+          --accent: #d97706;
+          --good: #059669;
+          --bad: #dc2626;
+          background: var(--bg) !important;
+        }
+
+        :global(.light-theme) .header {
+          background: rgba(255, 255, 255, 0.96) !important;
+          border-bottom: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .brand-title {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .icon-link {
+          background: #f1f5f9 !important;
+          color: #334155 !important;
+          border-color: var(--border) !important;
+        }
+
+        :global(.light-theme) .icon-link:hover {
+          background: #e2e8f0 !important;
+          color: #d97706 !important;
+        }
+
+        :global(.light-theme) .playground-badge {
+          color: #b45309 !important;
+          background: rgba(245, 158, 11, 0.2) !important;
+          border-color: rgba(245, 158, 11, 0.5) !important;
+        }
+
+        :global(.light-theme) .version-badge {
+          color: #334155 !important;
+          background: #e2e8f0 !important;
+          border-color: #cbd5e1 !important;
+        }
+
+        :global(.light-theme) .nav-tabs {
+          background: rgba(241, 245, 249, 0.9) !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .nav-btn {
+          color: #64748b !important;
+        }
+
+        :global(.light-theme) .nav-btn:hover {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .nav-btn.active {
+          background: #ffffff !important;
+          color: #0f172a !important;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+        }
+
+        :global(.light-theme) .example-card {
+          background: var(--panel) !important;
+          border: 1px solid var(--border) !important;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        :global(.light-theme) .example-card h2 {
+          color: var(--text) !important;
+        }
+
+        :global(.light-theme) .card-header p {
+          color: #334155 !important;
+        }
+
+        :global(.light-theme) .code-block {
+          background: var(--panel-2) !important;
+          border: 1px solid var(--border) !important;
+        }
+
+        :global(.light-theme) .code-block code {
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .copy-btn {
+          background: #ffffff !important;
+          border: 1px solid var(--border) !important;
+          color: #475569 !important;
+        }
+
+        :global(.light-theme) .copy-btn:hover {
+          background: #f1f5f9 !important;
+          color: #0f172a !important;
+        }
+
+        :global(.light-theme) .footer {
+          background: rgba(255, 255, 255, 0.95) !important;
+          border-top: 1px solid var(--border) !important;
+          color: #475569 !important;
+        }
+
+        :global(.light-theme) .title {
+          background: linear-gradient(135deg, #d97706, #b45309) !important;
+          -webkit-background-clip: text !important;
+          background-clip: text !important;
+          -webkit-text-fill-color: transparent !important;
+          color: transparent !important;
+        }
+
+        :global(.light-theme) .code-block pre {
+          color: #0f172a !important;
         }
       `}</style>
     </div>

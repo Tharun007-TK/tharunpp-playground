@@ -3,6 +3,8 @@ export const metadata = {
   description: 'Online playground for Tharunpp — Tamil cinema powered programming language',
 }
 
+import LoadingScreen from "./components/LoadingScreen";
+
 export default function RootLayout({
   children,
 }: {
@@ -10,7 +12,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <LoadingScreen />
+        {children}
+      </body>
     </html>
   )
 }
