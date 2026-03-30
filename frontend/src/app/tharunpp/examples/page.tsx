@@ -258,6 +258,12 @@ export default function TharunppExamples() {
       <style jsx>{`
         @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap");
 
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
         .shell {
           --bg: #06080f;
           --panel: #0f131e;
@@ -266,8 +272,7 @@ export default function TharunppExamples() {
           --text: #e5e7eb;
           --muted: #8e9aae;
           --accent: #f59e0b;
-          height: 100vh;
-          overflow-y: auto;
+          min-height: 100vh;
           background: #06080f;
           color: var(--text);
           display: flex;
@@ -390,7 +395,7 @@ export default function TharunppExamples() {
           flex: 1;
           display: flex;
           justify-content: center;
-          padding: 3rem 1.5rem;
+          padding: 0 1.5rem 2rem;
         }
 
         .examples-container {
@@ -410,7 +415,7 @@ export default function TharunppExamples() {
         .subtitle {
           font-size: 1.1rem;
           color: var(--muted);
-          margin-bottom: 3rem;
+          margin-bottom: 1.5rem;
         }
 
         .examples-grid {

@@ -278,6 +278,12 @@ DA</code></pre>
       <style jsx>{`
         @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap");
 
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
         .shell {
           --bg: #06080f;
           --panel: #0f131e;
@@ -286,8 +292,7 @@ DA</code></pre>
           --text: #e5e7eb;
           --muted: #8e9aae;
           --accent: #f59e0b;
-          height: 100vh;
-          overflow-y: auto;
+          min-height: 100vh;
           background: #06080f;
           color: var(--text);
           display: flex;
@@ -411,7 +416,7 @@ DA</code></pre>
           flex: 1;
           display: flex;
           justify-content: center;
-          padding: 3rem 1.5rem;
+          padding: 0 1.5rem 2rem;
         }
 
         .docs-container {
@@ -420,9 +425,9 @@ DA</code></pre>
         }
 
         .main-header {
-          margin-bottom: 3rem;
+          margin-bottom: 1.5rem;
           border-bottom: 1px solid var(--border);
-          padding-bottom: 2rem;
+          padding-bottom: 1.2rem;
         }
 
         .title {

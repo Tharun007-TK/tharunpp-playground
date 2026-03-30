@@ -12,6 +12,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <style>{`
+          *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+          html, body { margin: 0; padding: 0; overflow-x: hidden; }
+        `}</style>
+      </head>
       <body suppressHydrationWarning>
         <LoadingScreen />
         {children}
