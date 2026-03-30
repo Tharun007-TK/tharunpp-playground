@@ -282,6 +282,8 @@ export default function TharunppPlayground() {
   const [selectedExample, setSelectedExample] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState("");
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const monacoRef = useRef<any>(null);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -342,7 +344,12 @@ export default function TharunppPlayground() {
   const handleShare = () => {
     const encoded = btoa(encodeURIComponent(code));
     const url = `${window.location.origin}/tharunpp?code=${encoded}`;
-    navigator.clipboard.writeText(url).then(() => {
+    setShareUrl(url);
+    setIsShareModalOpen(true);
+  };
+
+  const copyShareLink = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     });
@@ -493,7 +500,7 @@ export default function TharunppPlayground() {
         </button>
 
         <button type="button" className="toolbar-button" onClick={handleShare}>
-          {copied ? "Copied!" : "Share"}
+          Share
         </button>
 
         <div className="exec-time" aria-live="polite">
@@ -559,6 +566,30 @@ export default function TharunppPlayground() {
           </div>
         </section>
       </main>
+
+      {isShareModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsShareModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Share Snippet</h3>
+              <button 
+                className="close-btn" 
+                onClick={() => setIsShareModalOpen(false)}
+                aria-label="Close"
+              >
+                ✕
+              </button>
+            </div>
+            <p className="modal-desc">Anyone with this link can view and run your cinematic code.</p>
+            <div className="share-input-group">
+              <input type="text" value={shareUrl} readOnly className="share-input" />
+              <button className="copy-link-btn" onClick={copyShareLink}>
+                {copied ? "Copied!" : "Copy Link"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <footer className="footer">
         <span>pip install tharunpp</span>
@@ -946,6 +977,97 @@ export default function TharunppPlayground() {
           background: rgba(10, 14, 23, 0.7);
         }
 
+        .modal-overlay {
+          position: fixed;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: rgba(6, 8, 15, 0.7);
+          backdrop-filter: blur(4px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+
+        .modal-content {
+          background: var(--panel);
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          padding: 1.5rem;
+          max-width: 480px;
+          width: 90%;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.5rem;
+        }
+
+        .modal-header h3 {
+          margin: 0;
+          font-size: 1.25rem;
+          color: var(--text);
+        }
+
+        .close-btn {
+          background: transparent;
+          border: none;
+          color: var(--muted);
+          font-size: 1.25rem;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+        
+        .close-btn:hover {
+          color: var(--text);
+        }
+
+        .modal-desc {
+          margin: 0 0 1.2rem 0;
+          color: var(--muted);
+          font-size: 0.9rem;
+        }
+
+        .share-input-group {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .share-input {
+          flex: 1;
+          background: var(--bg);
+          border: 1px solid var(--border);
+          color: var(--text);
+          padding: 0.6rem 0.8rem;
+          border-radius: 6px;
+          font-family: inherit;
+          font-size: 0.9rem;
+          outline: none;
+        }
+
+        .share-input:focus {
+          border-color: var(--accent);
+        }
+
+        .copy-link-btn {
+          background: linear-gradient(135deg, #fbbf24, #f59e0b);
+          color: #1a1102;
+          border: none;
+          padding: 0 1rem;
+          border-radius: 6px;
+          font-weight: 600;
+          cursor: pointer;
+          font-family: inherit;
+          white-space: nowrap;
+          transition: opacity 0.2s;
+        }
+        
+        .copy-link-btn:hover {
+          opacity: 0.9;
+        }
+
         .footer {
           min-height: 42px;
           border-top: 1px solid var(--border);
@@ -1179,6 +1301,19 @@ export default function TharunppPlayground() {
           background: rgba(255, 255, 255, 0.9) !important;
           border: 1px solid var(--border) !important;
           color: #64748b !important;
+        }
+
+        :global(.light-theme) .modal-overlay {
+          background: rgba(255, 255, 255, 0.7) !important;
+        }
+        
+        :global(.light-theme) .modal-content {
+          box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+        }
+
+        :global(.light-theme) .copy-link-btn {
+          background: linear-gradient(135deg, #fbbf24, #f59e0b) !important;
+          color: #1a1102 !important;
         }
       `}</style>
     </div>
